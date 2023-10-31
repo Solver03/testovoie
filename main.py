@@ -7,6 +7,7 @@ chats_data = {
 }
 
 
+# Функция для загрузки данных с json файла
 def load_chats_data():
     try:
         with open('chats_data.json', 'r') as json_file:
@@ -31,6 +32,7 @@ app = Client('my_account', api_id=api_id, api_hash=api_hash)
 app.start()
 
 
+# Функция для записи имен пользователей
 def add_users():
     print("Введите имена пользователей (без символа '@')\nВведите'/exit', чтобы закончить ")
     usernames = list(iter(lambda: input("Имя пользователя: "), '/exit'))
@@ -38,6 +40,7 @@ def add_users():
     return usernames
 
 
+# Функция для проверки существования имен
 def check_users_id(usernames):
     users_id = []
     for user in usernames:
@@ -50,6 +53,7 @@ def check_users_id(usernames):
     return users_id
 
 
+# Функция для создания нового чата
 def create_chat():
     users_id = check_users_id(add_users())
 
@@ -71,6 +75,7 @@ def create_chat():
         json.dump(chats_data, json_file, indent=4)
 
 
+# Функция для добавления новых пользователей в чат
 def add_to_chat(chat_id, chat_data):
     users_id = check_users_id(add_users())
 
@@ -81,6 +86,7 @@ def add_to_chat(chat_id, chat_data):
         print(f'При добавлении пользователя произошла ошибка{e}')
 
 
+# Функция для проверки наличия чата в списке
 def is_chat_id_in_data(chat_id, data):
     if data:
         chat_ids = [chat.get("chat_id") for chat in data.get("Chats", [])]
